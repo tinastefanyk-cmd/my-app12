@@ -1,98 +1,125 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { router } from 'expo-router';
+import { Pressable, ScrollView, StyleSheet, Text } from 'react-native';
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+const openTask = (task: string) => {
+  router.push(`/${task}` as any);
+};
+
+export default function App() {
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+    >
+      <Text style={styles.title}>Mine oppgaver</Text>
+      <Text style={styles.subtitle}>
+        React Native - Oppgaver
+      </Text>
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+      <Pressable
+        style={styles.card}
+        onPress={() => openTask('oppgave1')}
+      >
+        <Text style={styles.cardTitle}>Oppgave 1</Text>
+    
+      </Pressable>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+      <Pressable
+        style={styles.card}
+        onPress={() => openTask('oppgave2')}
+      >
+        <Text style={styles.cardTitle}>Oppgave 2</Text>
+      </Pressable>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+      <Pressable
+        style={styles.card}
+        onPress={() => openTask('oppgave3')}
+      >
+        <Text style={styles.cardTitle}>Oppgave 3</Text>
+      </Pressable>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+      <Pressable
+        style={styles.card}
+        onPress={() => openTask('oppgave4')}
+      >
+        <Text style={styles.cardTitle}>Oppgave 4</Text>
+      </Pressable>
+      
+      <Pressable
+        style={styles.card}
+        onPress={() => openTask('oppgave5')}
+      >
+        <Text style={styles.cardTitle}>Oppgave 5</Text>
+      </Pressable>
+      
+      <Pressable
+        style={styles.card}
+        onPress={() => openTask('oppgave6')}
+      >
+        <Text style={styles.cardTitle}>Oppgave 6</Text>
+      </Pressable>
+      
+      <Pressable  
+      style={styles.card}
+      onPress={() => openTask('oppgave7')}
+      >
+        <Text style={styles.cardTitle}>Oppgave 7</Text>
+
+      </Pressable>
+      
+      <Pressable
+      style={styles.card}
+      onPress={() => openTask('oppgave8')}
+      >
+        <Text style={styles.cardTitle}>Oppgave 8</Text>
+      </Pressable>
+    
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
+    backgroundColor: '#F5F0FF',
   },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+  contentContainer: {
+    padding: 24,
+    paddingTop: 70,
   },
   title: {
-    textAlign: 'center',
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#3E2A8C',
   },
-  code: {
-    textTransform: 'uppercase',
+  subtitle: {
+    fontSize: 16,
+    color: '#666666',
+    marginTop: 8,
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+  scrollHint: {
+    fontSize: 14,
+    color: '#666666',
+    marginTop: 8,
+    marginBottom: 20,
+  },
+  card: {
+    backgroundColor: '#FFFFFF',
+    padding: 18,
+    borderRadius: 14,
+    marginBottom: 14,
+    borderWidth: 1,
+    borderColor: '#E2DAF5',
+  },
+  cardTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#3E2A8C',
+  },
+  description: {
+    fontSize: 15,
+    color: '#666666',
+    marginTop: 5,
   },
 });
